@@ -1,8 +1,10 @@
-# 📌 GitHub Actions Cron Job With Python
+# 📌 KIS ETF Switching
 
 ## 📦 Tech Stack
 ![Python](https://img.shields.io/badge/python-3776AB.svg?&style=for-the-badge&logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/pandas-150458.svg?&style=for-the-badge&logo=pandas&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/githubactions-2088FF.svg?&style=for-the-badge&logo=githubactions&logoColor=white)
+![Supabase](https://img.shields.io/badge/supabase-3FCF8E.svg?&style=for-the-badge&logo=supabase&logoColor=white)
 ![Telegram](https://img.shields.io/badge/telegram-26A5E4.svg?&style=for-the-badge&logo=telegram&logoColor=white) 
 
 ## 🏁 Start
@@ -20,8 +22,10 @@ $ python tests.py # 단위 테스트
 > `Settings` > `Security` > `Secrets and variables` > `Actions` > `Secrets` > `New repository secret`
 
 ## 📚 Reference
-### KIS Developers Open API
+### KIS Developers
 - https://apiportal.koreainvestment.com/intro
+### Supabase
+- https://supabase.com/docs/reference/python
 ### Unittest
 - https://www.daleseo.com/python-unittest-testcase/
 - https://docs.python.org/3/library/unittest.html
