@@ -10,7 +10,7 @@
 ```shell
 $ python3 -m venv venv
 $ source venv/bin/activate
-# pip install requests python-dotenv -q
+# pip install requests python-dotenv supabase pandas -q
 # pip freeze > requirements.txt
 $ pip install -r requirements.txt
 # touch .env  # dotenv 혹은 환경변수 설정 필요
@@ -20,6 +20,8 @@ $ python tests.py # 단위 테스트
 > `Settings` > `Security` > `Secrets and variables` > `Actions` > `Secrets` > `New repository secret`
 
 ## 📚 Reference
+### KIS Developers Open API
+- https://apiportal.koreainvestment.com/intro
 ### Unittest
 - https://www.daleseo.com/python-unittest-testcase/
 - https://docs.python.org/3/library/unittest.html
