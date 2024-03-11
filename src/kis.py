@@ -45,7 +45,8 @@ class KISClient:
         response.raise_for_status()
         data = response.json().get('output1')
         df = pd.DataFrame(data, dtype='float')
-        return int(df.iloc[[0, 2, 6, 16], 1].sum())
+        # return int(df.iloc[[0, 2, 6, 16], 1].sum())
+        return int(df.iloc[[0, 6, 16], 1].sum())  # 채권 제외
 
     def get_stock_balance(self) -> pd.DataFrame:
         url = f'{self.domain}/uapi/domestic-stock/v1/trading/inquire-balance'
