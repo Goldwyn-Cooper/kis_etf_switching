@@ -14,6 +14,7 @@ def main() -> None:
         kis.set_access_token(access_token)
         account_balance = kis.get_account_balance()
         # print(account_balance)
+        bot.send_message(f'🌱 거래 가능 금액 : ₩{account_balance:,}')
         stock_balance = kis.get_stock_balance()
         # print(stock_balance)
         finance = FinanceHelper()
@@ -21,10 +22,10 @@ def main() -> None:
         limit = account_balance // 10_000_000 // candidate.category.nunique()
         # print(limit)
         table = finance.cal_candidate(candidate, limit)
+        print(table.loc[:, ['ko_name', 'momentum']])
         table['amount'] = table['ratio'] * account_balance
         table['quantity'] = table['amount'] / table['price']
-        table = table.loc[:, ['ko_name', 'quantity']]
-        print(table.loc[:, ['ko_name']])
+        table = table.loc[:, ['ko_name', 'quantity']]        
         merged = stock_balance.merge(table, left_index=True, right_index=True,
                                      how='outer', indicator=True, suffixes=('_sell', '_buy'))
         # print(merged)
