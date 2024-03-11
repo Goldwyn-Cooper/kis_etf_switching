@@ -24,7 +24,7 @@ def main() -> None:
         table['amount'] = table['ratio'] * account_balance
         table['quantity'] = table['amount'] / table['price']
         table = table.loc[:, ['ko_name', 'quantity']]
-        print(table)
+        print(table.loc[:, ['ko_name']])
         merged = stock_balance.merge(table, left_index=True, right_index=True,
                                      how='outer', indicator=True, suffixes=('_sell', '_buy'))
         # print(merged)
