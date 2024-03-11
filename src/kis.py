@@ -67,6 +67,7 @@ class KISClient:
         data = response.json().get('output1')
         df = pd.DataFrame(data).loc[:, ['pdno', 'prdt_name', 'hldg_qty']]
         df.columns = ['symbol', 'ko_name', 'quantity']
+        df.quantity = df.quantity.astype(int)
         return df.set_index('symbol').query('quantity > 0')
     
     def trading_payload(self, symbol: str, quantity: int):
