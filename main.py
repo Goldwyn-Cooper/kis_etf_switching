@@ -12,10 +12,14 @@ def main() -> None:
         sb = SupabaseClient()
         access_token = sb.fetch_token_from_cano(kis.cano)
         kis.set_access_token(access_token)
+        
+        # 계좌 정보
         account_balance = kis.get_account_balance()
         # print(account_balance)
         stock_balance = kis.get_stock_balance()
         # print(stock_balance)
+
+        # 후보 종목
         finance = FinanceHelper()
         candidate = sb.fetch_candidate()
         limit = account_balance // 10_000_000 // candidate.category.nunique()
@@ -25,9 +29,11 @@ def main() -> None:
         table['quantity'] = table['amount'] / table['price']
         table = table.loc[:, ['ko_name', 'quantity']]
         print(table)
-        merged = stock_balance.merge(table, left_index=True, right_index=True,
-                                     how='outer', indicator=True, suffixes=('_sell', '_buy'))
+        merged = stock_balance.merge(
+            table, left_index=True, right_index=True,
+            how='outer', indicator=True, suffixes=('_sell', '_buy'))
         # print(merged)
+
         # 매도
         sell = merged.query('_merge == "left_only"')\
                 .loc[:, ['ko_name_sell', 'quantity_sell']]
@@ -35,10 +41,11 @@ def main() -> None:
         for symbol, data in sell.iterrows():
             # print(f'👋 {symbol} {data[0]}')
             # print(kis.sell_order(symbol, data[1]))
-            msg += f'\n{symbol} {data[0]}'
+            msg += f'\n📋 {symbol} : {data[0]}'
             result = kis.sell_order(symbol, data[1])
             msg += f'\n{"✅" if not int(result.get("rt_cd")) else "❌"} {result.get("msg1")}'
         bot.send_message(msg)
+
         # 매수
         buy = merged.query('_merge == "right_only"')\
                 .loc[:, ['ko_name_buy', 'quantity_buy']]
@@ -46,7 +53,7 @@ def main() -> None:
         for symbol, data in buy.iterrows():
             # print(f'🤗 {symbol} {data[0]}')
             # print(kis.buy_order(symbol, data[1]))
-            msg += f'\n{symbol} {data[0]}'
+            msg += f'\n📋 {symbol} : {data[0]}'
             result = kis.buy_order(symbol, data[1])
             msg += f'\n{"✅" if not int(result.get("rt_cd")) else "❌"} {result.get("msg1")}'
         bot.send_message(msg)
