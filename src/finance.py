@@ -71,9 +71,10 @@ class FinanceHelper:
         etf['aatr'] = etf.index.map(self.update_aatr)
         etf['ratio'] = (etf.aatr.median() / etf.aatr)\
             .apply(lambda x: min(1, x)) / (etf.category.nunique() * limit)
-        etf.drop(columns=['aatr'], inplace=True)
+        # etf.drop(columns=['aatr'], inplace=True)
+        etf.sort_values('momentum', ascending=False, inplace=True)        
+        print(etf.loc[:, ['ko_name', 'momentum', 'aatr']])
         etf.query('momentum > 0', inplace=True)
-        etf.sort_values('momentum', ascending=False, inplace=True)
         result = etf.groupby('category').head(limit)\
             .sort_values(['category', 'momentum'],
                         ascending=[True, False])\

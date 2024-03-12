@@ -26,7 +26,6 @@ def main() -> None:
         limit = account_balance // 10_000_000 // candidate.category.nunique()
         # print(limit)
         table = finance.cal_candidate(candidate, limit)
-        print(table.loc[:, ['ko_name', 'momentum']])
         table['amount'] = table['ratio'] * account_balance
         table['quantity'] = table['amount'] / table['price']
         table = table.loc[:, ['ko_name', 'quantity']]
