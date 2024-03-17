@@ -11,8 +11,9 @@ import pandas as pd
 
 class FinanceHelper:
     def __init__(self) -> None:
-        self.fibo = self.get_fibo(13)
+        self.fibo = (2, 3, 5, 8, 13, 21, 34, 55)
 
+    '''
     @staticmethod    
     def get_fibo(n: int) -> list:
         fibo = [0] * max(n+1, 3)
@@ -21,6 +22,7 @@ class FinanceHelper:
         for i in range(3, n+1):
             fibo[i] = fibo[i-1] + fibo[i-2]
         return fibo[3:]
+    '''
 
     cache = {}
 
@@ -47,7 +49,7 @@ class FinanceHelper:
         price = self.fetch_history(symbol).Close
         momentum = []
         cal_momentum = lambda f:\
-            lambda x: (x.iloc[-1] / x.iloc[0] - 1) / f
+            lambda x: (x.iloc[-1] / x.iloc[0] - 1)
         for f in self.fibo:
             m = price.rolling(f)\
                 .apply(cal_momentum(f))\
